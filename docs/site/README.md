@@ -1,7 +1,24 @@
 # ShiftLock Documentation Site
 
-Markdown documentation hierarchy for Phase 6. Intended for MkDocs / similar static
-generators later; until then browse these pages directly in the repository.
+Published with **MkDocs Material** from this tree. Live site:
+[https://theworker02.github.io/shiftlock/](https://theworker02.github.io/shiftlock/).
+
+## Local preview
+
+From the repository root (Python 3.10+):
+
+```bash
+pip install -r requirements-docs.txt
+mkdocs serve -f docs/site/mkdocs.yml
+```
+
+Build:
+
+```bash
+mkdocs build --strict -f docs/site/mkdocs.yml
+```
+
+Site dependencies stay in `requirements-docs.txt` — never in `go.mod`.
 
 ## Navigation
 
@@ -38,24 +55,25 @@ generators later; until then browse these pages directly in the repository.
 | Production Checklist | [production-checklist/](production-checklist/) |
 | API Reference | [api-reference/](api-reference/) |
 | Examples | [examples/](examples/) |
+| Problem guides | [problems/](problems/) |
 
-## Site goals
+## Deploy
 
-- Strong hierarchy and side navigation (not a card wall)
-- Security warnings call out fail-closed defaults
-- Backend capability tables and failure scenarios
-- Copyable Go examples and CLI snippets
-- Migration notes from Phase 5
+GitHub Actions workflow [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml)
+builds on pushes to `main` that touch docs/site (and related paths) and on
+`workflow_dispatch`.
+
+**GitHub Pages source must be GitHub Actions** (Settings → Pages → Build and
+deployment → Source: GitHub Actions).
+
+## Branding
+
+Theme colors follow [brand guidelines](../../assets/brand/brand-guidelines.md)
+(Lock Cyan `#27C2D1`, Transfer Blue `#2D72E8`, Deep Navy `#0A1830`). Logos under
+`assets/` are copies of `assets/logo/` for MkDocs `docs_dir` constraints.
 
 See also:
 
-- [Security model](../security-model.md)
-- [Threat model](../threat-model.md)
-- [Dependency discipline](../dependency-discipline.md)
-- [Phase 6 audit](../audits/phase-6-audit.md)
-
-## Future tooling
-
-Planned: search, version selector, and branded MkDocs Material theme using
-`assets/logo/shiftlock-horizontal.svg`. Content stubs are authoritative until
-the generator is wired.
+- [Security model](https://github.com/theworker02/shiftlock/blob/main/docs/security-model.md)
+- [Threat model](https://github.com/theworker02/shiftlock/blob/main/docs/threat-model.md)
+- [Dependency discipline](https://github.com/theworker02/shiftlock/blob/main/docs/dependency-discipline.md)
