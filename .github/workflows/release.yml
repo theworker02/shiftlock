@@ -25,7 +25,7 @@ jobs:
           GOOS=darwin GOARCH=amd64 go build -o dist/shiftlock-inspect_darwin_amd64 ./cmd/shiftlock-inspect
           GOOS=windows GOARCH=amd64 go build -o dist/shiftlock-inspect_windows_amd64.exe ./cmd/shiftlock-inspect
       - name: Upload artifacts
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: dist/*
           generate_release_notes: true
