@@ -9,7 +9,6 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"sync"
 	"sync/atomic"
 	"time"
 
@@ -52,8 +51,7 @@ type Config struct {
 
 // Resource implements resource.Resource for PostgreSQL (or any SQL DB).
 type Resource struct {
-	cfg    Config
-	mu     sync.Mutex
+	cfg     Config
 	drained atomic.Bool
 }
 
