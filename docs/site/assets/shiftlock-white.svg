@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ShiftLock white">
+  <title>ShiftLock White</title>
+  <path fill="#FFFFFF" d="M64 8 L108 28 V64 C108 92 90 112 64 120 C38 112 20 92 20 64 V28 Z"/>
+  <rect x="34" y="44" width="36" height="14" rx="3" fill="#0A1830"/>
+  <rect x="58" y="62" width="36" height="14" rx="3" fill="#0A1830" opacity="0.55"/>
+  <path fill="none" stroke="#0A1830" stroke-width="8" stroke-linecap="round"
+        d="M48 44 V34 C48 24 56 18 64 18 C72 18 80 24 80 34 V44"/>
+  <circle cx="64" cy="78" r="7" fill="#0A1830"/>
+  <rect x="60" y="78" width="8" height="14" rx="2" fill="#0A1830"/>
+</svg>

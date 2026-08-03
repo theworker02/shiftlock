@@ -1,0 +1,73 @@
+/* ShiftLock brand palette — see assets/brand/brand-guidelines.md */
+:root,
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #0a1830;
+  --md-primary-fg-color--light: #1a2f4d;
+  --md-primary-fg-color--dark: #050c18;
+  --md-primary-bg-color: #f4fafc;
+  --md-primary-bg-color--light: #ffffff;
+  --md-accent-fg-color: #27c2d1;
+  --md-accent-fg-color--transparent: #27c2d133;
+  --md-accent-bg-color: #ffffff;
+  --md-default-bg-color: #f4fafc;
+  --md-typeset-a-color: #2d72e8;
+  --md-footer-bg-color: #0a1830;
+  --md-footer-bg-color--dark: #050c18;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #0a1830;
+  --md-primary-fg-color--light: #1a2f4d;
+  --md-primary-fg-color--dark: #050c18;
+  --md-accent-fg-color: #27c2d1;
+  --md-accent-fg-color--transparent: #27c2d133;
+  --md-default-bg-color: #161b22;
+  --md-typeset-a-color: #27c2d1;
+  --md-footer-bg-color: #0a1830;
+}
+
+.md-header {
+  background: linear-gradient(105deg, #0a1830 0%, #0a1830 55%, #1a2f4d 100%);
+}
+
+.md-tabs {
+  background-color: #0a1830;
+}
+
+.md-typeset h1 {
+  color: #0a1830;
+  font-weight: 700;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #f4fafc;
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-color: #e5a93d;
+}
+
+.md-typeset .warning > .admonition-title,
+.md-typeset .warning > summary {
+  background-color: #e5a93d1a;
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+  border-color: #d84a4a;
+}
+
+.sl-hero-logo {
+  display: block;
+  max-width: 280px;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.sl-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  font-weight: 600;
+}

@@ -18,6 +18,8 @@
 </p>
 
 <p align="center">
+  <a href="https://theworker02.github.io/shiftlock/"><strong>Docs site</strong></a>
+  ·
   <a href="https://pkg.go.dev/github.com/theworker02/shiftlock"><strong>Go module docs</strong></a>
   ·
   <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.8.0">v0.8.0</a>
@@ -185,10 +187,28 @@ go run ./cmd/shiftlock-inspect readiness-report -format json
 
 Destructive recovery requires `--expected-owner`, `--expected-token`, `--reason`, and `--confirm` — never a blind force-unlock.
 
+## Documentation site
+
+Human-oriented docs are published with MkDocs Material to GitHub Pages:
+
+**[https://theworker02.github.io/shiftlock/](https://theworker02.github.io/shiftlock/)**
+
+Sources live under [`docs/site/`](docs/site/). Preview locally:
+
+```bash
+pip install -r requirements-docs.txt
+mkdocs serve -f docs/site/mkdocs.yml
+```
+
+Deploy uses [`.github/workflows/pages.yml`](.github/workflows/pages.yml). In the
+repo **Settings → Pages**, set the source to **GitHub Actions** (not a branch
+folder). Site Python deps are in `requirements-docs.txt` only — not `go.mod`.
+
 ## Documentation
 
 | Topic | Link |
 |-------|------|
+| **Docs site** | **[theworker02.github.io/shiftlock](https://theworker02.github.io/shiftlock/)** |
 | Architecture | [docs/architecture.md](docs/architecture.md) |
 | Handoff protocol | [docs/handoff-protocol.md](docs/handoff-protocol.md) |
 | Fencing tokens | [docs/fencing-tokens.md](docs/fencing-tokens.md) |

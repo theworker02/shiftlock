@@ -1,47 +1,116 @@
 site_name: ShiftLock
 site_description: Security-first runtime coordination and control for Go
+site_url: https://theworker02.github.io/shiftlock/
+site_author: theworker02
 repo_url: https://github.com/theworker02/shiftlock
+repo_name: theworker02/shiftlock
+edit_uri: edit/main/docs/site/
+copyright: Copyright &copy; ShiftLock contributors — Apache License 2.0
+docs_dir: .
+site_dir: ../../site
+
 theme:
   name: material
-  logo: ../../assets/logo/shiftlock-mark.svg
-  favicon: ../../assets/logo/shiftlock-mark.svg
+  logo: assets/shiftlock-white.svg
+  favicon: assets/shiftlock-mark.svg
   palette:
-    primary: teal
-    accent: cyan
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  font:
+    text: Source Sans 3
+    code: JetBrains Mono
+
 nav:
   - Home: index.md
-  - Introduction: introduction/index.md
-  - Quick Start: quick-start/index.md
-  - Concepts: concepts/index.md
-  - Ownership: ownership/index.md
-  - Fencing: fencing/index.md
-  - Handoffs: handoffs/index.md
-  - Supervisor: supervisor/index.md
-  - Leader Election: leader-election/index.md
-  - Scheduling: scheduling/index.md
-  - Barriers: barriers/index.md
-  - Quorum: quorum/index.md
-  - Capabilities: capabilities/index.md
-  - Security Policies: security-policies/index.md
-  - Maintenance: maintenance/index.md
-  - Lockdown: lockdown/index.md
-  - Configuration: configuration/index.md
-  - Audit: audit/index.md
-  - Recovery: recovery/index.md
-  - Backends: backends/index.md
-  - Integrations: integrations/index.md
-  - Kubernetes: kubernetes/index.md
-  - systemd: systemd/index.md
-  - Windows: windows/index.md
-  - CLI: cli/index.md
-  - TUI: tui/index.md
-  - Operations: operations/index.md
-  - Threat Model: threat-model/index.md
-  - Security Hardening: security-hardening/index.md
-  - Production Checklist: production-checklist/index.md
-  - API Reference: api-reference/index.md
-  - Examples: examples/index.md
+  - Getting started:
+      - Introduction: introduction/index.md
+      - Quick Start: quick-start/index.md
+      - Concepts: concepts/index.md
+  - Core coordination:
+      - Ownership: ownership/index.md
+      - Fencing: fencing/index.md
+      - Handoffs: handoffs/index.md
+  - Runtime control:
+      - Supervisor: supervisor/index.md
+      - Leader Election: leader-election/index.md
+      - Scheduling: scheduling/index.md
+      - Barriers: barriers/index.md
+      - Quorum: quorum/index.md
+      - Capabilities: capabilities/index.md
+      - Security Policies: security-policies/index.md
+      - Maintenance: maintenance/index.md
+      - Lockdown: lockdown/index.md
+      - Configuration: configuration/index.md
+      - Audit: audit/index.md
+      - Recovery: recovery/index.md
+  - Platforms & tooling:
+      - Backends: backends/index.md
+      - Integrations: integrations/index.md
+      - Kubernetes: kubernetes/index.md
+      - systemd: systemd/index.md
+      - Windows: windows/index.md
+      - CLI: cli/index.md
+      - TUI: tui/index.md
+      - Operations: operations/index.md
+  - Security & production:
+      - Threat Model: threat-model/index.md
+      - Security Hardening: security-hardening/index.md
+      - Production Checklist: production-checklist/index.md
+  - Reference:
+      - API Reference: api-reference/index.md
+      - Examples: examples/index.md
+      - Problem guides: problems/index.md
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/theworker02/shiftlock
+      name: GitHub
+    - icon: fontawesome/brands/golang
+      link: https://pkg.go.dev/github.com/theworker02/shiftlock
+      name: Go package docs
+
+plugins:
+  - search
+
+# Repo-facing index; not part of the published nav tree.
+exclude_docs: |
+  README.md
+
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - tables
   - toc:
       permalink: true
