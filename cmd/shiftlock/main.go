@@ -244,7 +244,7 @@ func cmdCapabilities(args []string) error {
 
 func cmdSecurity(args []string) error {
 	if len(args) == 0 || args[0] != "scan" {
-		return fmt.Errorf("usage: shiftlock security scan [-format text|json|sarif] [-production] ...")
+		return fmt.Errorf("usage: shiftlock security scan [-format text|json|sarif] [-production]")
 	}
 	fs := flag.NewFlagSet("security scan", flag.ExitOnError)
 	format := fs.String("format", "text", "text|json|sarif")
@@ -369,7 +369,7 @@ func cmdIncident(args []string) error {
 
 func cmdSnapshot(args []string) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: shiftlock snapshot create|diff ...")
+		return fmt.Errorf("usage: shiftlock snapshot create|diff")
 	}
 	switch args[0] {
 	case "create":
