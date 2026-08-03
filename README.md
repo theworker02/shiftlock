@@ -1,41 +1,94 @@
 # ShiftLock
 
-[![CI](https://github.com/theworker02/shiftlock/actions/workflows/ci.yml/badge.svg)](https://github.com/theworker02/shiftlock/actions/workflows/ci.yml)
-[![Go Reference](https://pkg.go.dev/badge/github.com/theworker02/shiftlock.svg)](https://pkg.go.dev/github.com/theworker02/shiftlock)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+<p align="center">
+  <img src="assets/logo/shiftlock-horizontal.svg" alt="ShiftLock" width="440"/>
+</p>
 
-**ShiftLock** is a security-first Go **resource fabric**: coordinate, protect,
-supervise, and recover application resources across processes, services, data
-systems, and deployments — without a hosted control plane.
+<p align="center">
+  <strong>A security-first Go resource fabric</strong><br/>
+  Coordinate ownership, supervise workloads, enforce runtime policy,<br/>
+  and lock down sensitive operations — without a hosted control plane.
+</p>
 
-Graceful shutdown stops an old process. ShiftLock decides **who may perform
-protected work**, how ownership moves, and (optionally) how databases, queues,
-APIs, and workflows stay safe under fencing tokens, policy, and lockdown.
+<p align="center">
+  <a href="https://pkg.go.dev/github.com/theworker02/shiftlock"><img src="https://pkg.go.dev/badge/github.com/theworker02/shiftlock.svg" alt="Go Reference"/></a>
+  <a href="https://github.com/theworker02/shiftlock/actions/workflows/ci.yml"><img src="https://github.com/theworker02/shiftlock/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
+  <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.8.0"><img src="https://img.shields.io/github/v/release/theworker02/shiftlock?include_prereleases&sort=semver" alt="Release"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"/></a>
+</p>
 
-## Install
+<p align="center">
+  <a href="https://pkg.go.dev/github.com/theworker02/shiftlock"><strong>Go module docs</strong></a>
+  ·
+  <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.8.0">v0.8.0</a>
+  ·
+  <a href="docs/architecture.md">Architecture</a>
+  ·
+  <a href="docs/problems/README.md">Problem guides</a>
+</p>
+
+---
+
+Graceful shutdown stops an old process. **ShiftLock** decides who may perform
+protected work next — with fencing tokens so a stale process cannot keep acting
+after losing ownership — and optionally extends that same model to supervisors,
+workflows, databases, queues, and APIs.
+
+## Go module
+
+| | |
+|---|---|
+| **Module path** | [`github.com/theworker02/shiftlock`](https://pkg.go.dev/github.com/theworker02/shiftlock) |
+| **Latest release** | [`v0.8.0`](https://pkg.go.dev/github.com/theworker02/shiftlock@v0.8.0) |
+| **Repository** | [github.com/theworker02/shiftlock](https://github.com/theworker02/shiftlock) |
 
 ```bash
-go get github.com/theworker02/shiftlock@latest
+go get github.com/theworker02/shiftlock@v0.8.0
 ```
 
-Supports the current and previous stable Go releases.
+Supports the current and previous stable Go releases. Core stays stdlib-first;
+backends and integrations are isolated optional packages.
 
 ## Quick start
 
 ```go
-be := memory.New()
-coord, err := shiftlock.New(shiftlock.Config{
-    Service: "billing", InstanceID: "pod-a", Backend: be, LeaseTTL: 15 * time.Second,
-})
-err = coord.Run(ctx, shiftlock.Worker{
-    Name: "billing-reconciler",
-    Run: func(ctx context.Context, ownership *shiftlock.Lease) error {
-        // fence writes with ownership.FencingToken()
-        <-ctx.Done()
-        return nil
-    },
-})
+package main
+
+import (
+	"context"
+	"time"
+
+	"github.com/theworker02/shiftlock"
+	"github.com/theworker02/shiftlock/backend/memory"
+)
+
+func main() {
+	be := memory.New()
+	defer be.Close()
+
+	coord, err := shiftlock.New(shiftlock.Config{
+		Service:    "billing",
+		InstanceID: "pod-a",
+		Backend:    be,
+		LeaseTTL:   15 * time.Second,
+	})
+	if err != nil {
+		panic(err)
+	}
+	defer coord.Close()
+
+	_ = coord.Run(context.Background(), shiftlock.Worker{
+		Name: "billing-reconciler",
+		Run: func(ctx context.Context, ownership *shiftlock.Lease) error {
+			// Persist ownership.FencingToken() with every protected write.
+			<-ctx.Done()
+			return nil
+		},
+	})
+}
 ```
+
+Try the examples:
 
 ```bash
 go run ./examples/singleton-worker
@@ -43,139 +96,107 @@ go run ./examples/runtime-supervisor
 go run ./examples/secure-control-plane
 go run ./examples/infrastructure-orchestrator
 go run ./examples/object-store-sync
-go run ./cmd/shiftlock-inspect rehearse-handoff
 ```
 
-Module: [`github.com/theworker02/shiftlock`](https://github.com/theworker02/shiftlock) — clone `https://github.com/theworker02/shiftlock.git`.
+## What ShiftLock is (and is not)
 
-## Runtime (Phase 6, opt-in)
+| It is | It is not |
+|-------|-----------|
+| Ownership handoff + fencing for Go processes | A hosted control plane |
+| An opt-in runtime supervisor & security layer | A Kubernetes-only framework |
+| A shared fabric around DBs, queues, APIs, files | A replacement for those systems |
+| Importable as a normal Go module | A SaaS product |
+
+> Protect who may perform sensitive work, when it may run, and how responsibility moves safely between instances.
+
+## Core coordination
+
+```go
+claim, err := coordinator.Claim(ctx, "billing-reconciler")
+lease, err := claim.WaitForOwnership(ctx)
+// lease.Context(), lease.FencingToken()
+
+handoff, err := coordinator.PrepareHandoff(ctx)
+_ = handoff.Drain(ctx)
+_ = handoff.Transfer(ctx, successorGenerationID)
+_ = handoff.Commit(ctx) // or Abort — rolls back reservation safely
+```
+
+Generation flow: `joining → standby → preparing → active → draining → transferring → retired | failed`.
+
+## Runtime & security (opt-in)
 
 ```go
 rt, err := shiftlock.NewRuntime(shiftlock.RuntimeConfig{
-    Config:          shiftlock.Config{Service: "billing", InstanceID: "pod-a", Backend: be},
-    SecurityProfile: shiftlock.ProfileStandard,
-    EnableSupervisor: true,
-    EnableAudit:      true,
+	Config:           shiftlock.Config{Service: "billing", InstanceID: "pod-a", Backend: be},
+	SecurityProfile:  shiftlock.ProfileStandard,
+	EnableSupervisor: true,
+	EnableAudit:      true,
 })
 defer rt.Close()
-_ = rt.Supervisor() // task modes, bounded restarts
-_ = rt.Features()
+
+_ = rt.Supervisor()  // ownership-aware tasks, bounded restarts
+_ = rt.Lockdown()    // emergency stop without erasing evidence
+_ = rt.Capabilities()
 ```
 
-Security features are opt-in; `shiftlock.New` / Coordinator APIs remain unchanged.
-See [docs/migration/phase-5-to-phase-6.md](docs/migration/phase-5-to-phase-6.md) and
-[docs/roadmap-phase-6.md](docs/roadmap-phase-6.md).
+Existing `shiftlock.New` / Coordinator APIs stay unchanged. See
+[Phase 5→6 migration](docs/migration/phase-5-to-phase-6.md).
 
-## Resource fabric & workflows (Phase 7, opt-in)
+## Resource fabric (opt-in)
 
 ```go
 rt, err := shiftlock.NewRuntime(shiftlock.RuntimeConfig{
-    Config:          shiftlock.Config{Service: "billing", InstanceID: "pod-a", Backend: be},
-    EnableResources: true,
-    EnableWorkflows: true,
-    EnableLockdown:  true,
+	Config:          shiftlock.Config{Service: "billing", InstanceID: "pod-a", Backend: be},
+	EnableResources: true,
+	EnableWorkflows: true,
 })
 defer rt.Close()
 
-_, _ = rt.Resources().Register(resmemory.Worker("production", "billing", "reconciler"), resource.Metadata{})
-
-def, _ := workflow.Define("drain-reconcile").
-    Step("drain", func(ctx context.Context, exec *workflow.ExecContext) (workflow.Result, error) {
-        return workflow.Result{}, nil
-    }).
-    Build()
-_ = rt.Workflows().Register(def)
+_, _ = rt.Resources().Register(/* adapters */)
 _, _ = rt.Workflows().Run(ctx, "drain-reconcile", workflow.RunOptions{})
 ```
 
 Local-first durable state:
 
 ```go
-shiftlock.WithLocalStateDir("/var/lib/shiftlock")(&cfg) // workflows journal + registry path
+shiftlock.WithLocalStateDir("/var/lib/shiftlock")(&cfg)
 ```
 
-See [docs/roadmap-phase-7.md](docs/roadmap-phase-7.md) and
-[docs/audits/phase-7-audit.md](docs/audits/phase-7-audit.md). Ownership quick start above is unchanged.
-
-## Core API
-
-```go
-claim, err := coordinator.Claim(ctx, "billing-reconciler")
-lease, err := claim.WaitForOwnership(ctx)
-handoff, err := coordinator.PrepareHandoff(ctx)
-handoff.Drain(ctx)
-handoff.Transfer(ctx, successorGenerationID)
-handoff.Commit(ctx) // or Abort
-```
-
-Generation states: `joining → standby → preparing → active → draining → transferring → retired|failed`.
+Problem-oriented guides: [docs/problems](docs/problems/README.md).
 
 ## Backends
 
 | Backend | Package | Notes |
 |---------|---------|-------|
-| Memory | `backend/memory` | Tests, fault injection, certification |
-| PostgreSQL | `backend/postgres` | Row locks + durable `OperationID` ops table (`Migrate`) |
-| Redis | `backend/redis` | Lua CAS + Local in-process; AOF recommended |
-| Kubernetes | `backend/kubernetes` | Lease objects; no k8s deps on core |
+| Memory | [`backend/memory`](backend/memory) | Tests, fault injection, certification |
+| PostgreSQL | [`backend/postgres`](backend/postgres) | Transactions, row locks, durable `OperationID` |
+| Redis | [`backend/redis`](backend/redis) | Lua CAS; AOF recommended for durability |
+| Kubernetes | [`backend/kubernetes`](backend/kubernetes) | Lease objects; no k8s deps on core |
 
 ## Operator tooling
 
 ```bash
 go run ./cmd/shiftlock version
-go run ./cmd/shiftlock status
 go run ./cmd/shiftlock security scan -production -format text
-go run ./cmd/shiftlock redteam run
-go run ./cmd/shiftlock audit verify -file audit.ndjson
-go run ./cmd/shiftlock snapshot create -out snap.json
-
 go run ./cmd/shiftlock-inspect timeline -journal events.ndjson -claim NAME
-go run ./cmd/shiftlock-inspect explain -journal events.ndjson -claim NAME
-go run ./cmd/shiftlock-inspect incident create -journal events.ndjson -out incident.tar.gz
-go run ./cmd/shiftlock-inspect recovery abort-transfer --claim C --expected-owner G --expected-token N --reason "..." --dry-run
 go run ./cmd/shiftlock-inspect readiness-report -format json
-go run ./cmd/shiftlock-inspect rehearse-handoff
 ```
 
-`shiftlock-inspect` remains the journal/recovery toolkit and thin-aliases unified
-`shiftlock` subcommands when that binary is on `PATH`.
-
-Recovery never blind force-unlocks: `--expected-owner`, `--expected-token`, `--reason`, and `--confirm` are required to mutate.
-
-## Safety & certification
-
-```bash
-go test ./backend/memory -run TestCertification
-go test ./backend/redis -run TestLocalCertification
-go test ./backend/kubernetes -run TestCertification
-go test ./lab
-go test ./model -count=1
-```
-
-- Formal model: `model/`
-- Simulation: `internal/simulation/`
-- Fault injection: `backend/faultinject`
-- Chaos lab: `lab/` (+ `lab/docker-compose.yml`)
-- Audits: [phase-5](docs/audits/phase-5-audit.md) · [phase-6](docs/audits/phase-6-audit.md) · [phase-7](docs/audits/phase-7-audit.md)
-- Red-team: `go test ./security/redteam`
-- Scanner: `go run ./cmd/shiftlock security scan -production`
-
-## Integrations
-
-Optional ownership guards (no vendor SDKs on core): `integration/{kafka,nats,rabbitmq,sqs,scheduler,httpserver,grpcserver}` — see [integration/README.md](integration/README.md).
-
-Identity providers: `identity/{hostname,environment,pod,aws}`.  
-Fencing helpers: `fencing/{memory,postgres,redis}`.
+Destructive recovery requires `--expected-owner`, `--expected-token`, `--reason`, and `--confirm` — never a blind force-unlock.
 
 ## Documentation
 
-- [Architecture](docs/architecture.md) · [Handoff](docs/handoff-protocol.md) · [Fencing](docs/fencing-tokens.md)
-- [Failure model](docs/failure-model.md) · [Backends](docs/backends.md) · [Operations](docs/operations.md)
-- [Clock safety](docs/clock-safety.md) · [Compatibility](docs/compatibility.md) · [Release policy](docs/release-policy.md)
-- [Testing](docs/testing.md) · [Kubernetes](docs/kubernetes.md) · [Security](docs/security.md)
-- [Phase 5 audit](docs/audits/phase-5-audit.md) · [Phase 6 audit](docs/audits/phase-6-audit.md) · [Phase 7 audit](docs/audits/phase-7-audit.md)
-- [Phase 5→6 migration](docs/migration/phase-5-to-phase-6.md) · [Phase 6 roadmap](docs/roadmap-phase-6.md) · [Phase 7 roadmap](docs/roadmap-phase-7.md)
-- Brand: [assets/brand/brand-guidelines.md](assets/brand/brand-guidelines.md) · [assets/logo/shiftlock-mark.svg](assets/logo/shiftlock-mark.svg)
+| Topic | Link |
+|-------|------|
+| Architecture | [docs/architecture.md](docs/architecture.md) |
+| Handoff protocol | [docs/handoff-protocol.md](docs/handoff-protocol.md) |
+| Fencing tokens | [docs/fencing-tokens.md](docs/fencing-tokens.md) |
+| Failure model | [docs/failure-model.md](docs/failure-model.md) |
+| Security model | [docs/security-model.md](docs/security-model.md) |
+| Production checklist | [docs/production-checklist.md](docs/production-checklist.md) |
+| Brand assets | [assets/brand/brand-guidelines.md](assets/brand/brand-guidelines.md) |
+| **Go package reference** | **[pkg.go.dev/github.com/theworker02/shiftlock](https://pkg.go.dev/github.com/theworker02/shiftlock)** |
 
 ## License
 
