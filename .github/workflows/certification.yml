@@ -1,0 +1,33 @@
+name: Certification
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.x"
+      - name: Backend certification (memory)
+        run: go test ./backend/memory -run TestCertification -count=1
+      - name: Backend certification (redis Local)
+        run: go test ./backend/redis -run TestLocalCertification -count=1
+      - name: Backend certification (kubernetes memory leases)
+        run: go test ./backend/kubernetes -run TestCertification -count=1
+      - name: Protocol model
+        run: go test ./model -count=1
+      - name: Simulation
+        run: go test ./internal/simulation -count=1
+      - name: Chaos lab
+        run: go test ./lab -count=1

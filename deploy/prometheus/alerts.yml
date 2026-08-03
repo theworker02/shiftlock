@@ -1,0 +1,22 @@
+groups:
+  - name: shiftlock
+    rules:
+      - alert: ShiftLockClaimUnowned
+        expr: shiftlock_claims_unowned > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "ShiftLock claim unowned for >2m"
+      - alert: ShiftLockSplitBrain
+        expr: shiftlock_split_brain_total > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: "ShiftLock split-brain detected"
+      - alert: ShiftLockHeartbeatStale
+        expr: time() - shiftlock_last_heartbeat_timestamp > 30
+        for: 1m
+        labels:
+          severity: warning

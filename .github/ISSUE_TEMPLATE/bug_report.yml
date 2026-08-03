@@ -1,0 +1,28 @@
+name: Bug report
+description: Report incorrect ownership / fencing behavior
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: Include claim names, generation IDs, and fencing tokens if known.
+    validations:
+      required: true
+  - type: textarea
+    id: expect
+    attributes:
+      label: Expected invariant
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Module version / commit
+    validations:
+      required: true
+  - type: dropdown
+    id: backend
+    attributes:
+      label: Backend
+      options: [memory, postgres, redis, kubernetes, other]

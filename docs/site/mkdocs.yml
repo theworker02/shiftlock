@@ -1,0 +1,47 @@
+site_name: ShiftLock
+site_description: Security-first runtime coordination and control for Go
+repo_url: https://github.com/theworker02/shiftlock
+theme:
+  name: material
+  logo: ../../assets/logo/shiftlock-mark.svg
+  favicon: ../../assets/logo/shiftlock-mark.svg
+  palette:
+    primary: teal
+    accent: cyan
+nav:
+  - Home: index.md
+  - Introduction: introduction/index.md
+  - Quick Start: quick-start/index.md
+  - Concepts: concepts/index.md
+  - Ownership: ownership/index.md
+  - Fencing: fencing/index.md
+  - Handoffs: handoffs/index.md
+  - Supervisor: supervisor/index.md
+  - Leader Election: leader-election/index.md
+  - Scheduling: scheduling/index.md
+  - Barriers: barriers/index.md
+  - Quorum: quorum/index.md
+  - Capabilities: capabilities/index.md
+  - Security Policies: security-policies/index.md
+  - Maintenance: maintenance/index.md
+  - Lockdown: lockdown/index.md
+  - Configuration: configuration/index.md
+  - Audit: audit/index.md
+  - Recovery: recovery/index.md
+  - Backends: backends/index.md
+  - Integrations: integrations/index.md
+  - Kubernetes: kubernetes/index.md
+  - systemd: systemd/index.md
+  - Windows: windows/index.md
+  - CLI: cli/index.md
+  - TUI: tui/index.md
+  - Operations: operations/index.md
+  - Threat Model: threat-model/index.md
+  - Security Hardening: security-hardening/index.md
+  - Production Checklist: production-checklist/index.md
+  - API Reference: api-reference/index.md
+  - Examples: examples/index.md
+markdown_extensions:
+  - admonition
+  - toc:
+      permalink: true

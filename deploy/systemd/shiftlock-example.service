@@ -1,0 +1,11 @@
+[Unit]
+Description=Example service using ShiftLock
+After=network.target
+
+[Service]
+Environment=SHIFTLOCK_INSTANCE_ID=%n
+ExecStart=/usr/local/bin/my-service
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.x"
+      - name: Test
+        run: go test ./...
+      - name: Build inspector
+        run: |
+          mkdir -p dist
+          GOOS=linux GOARCH=amd64 go build -o dist/shiftlock-inspect_linux_amd64 ./cmd/shiftlock-inspect
+          GOOS=darwin GOARCH=amd64 go build -o dist/shiftlock-inspect_darwin_amd64 ./cmd/shiftlock-inspect
+          GOOS=windows GOARCH=amd64 go build -o dist/shiftlock-inspect_windows_amd64.exe ./cmd/shiftlock-inspect
+      - name: Upload artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

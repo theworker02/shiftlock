@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 220" role="img" aria-label="ShiftLock">
+  <title>ShiftLock Stacked</title>
+  <defs>
+    <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#27C2D1"/>
+      <stop offset="100%" stop-color="#2D72E8"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(56,8) scale(1)">
+    <path fill="#0A1830" d="M64 8 L108 28 V64 C108 92 90 112 64 120 C38 112 20 92 20 64 V28 Z"/>
+    <rect x="34" y="44" width="36" height="14" rx="3" fill="url(#sg)"/>
+    <rect x="58" y="62" width="36" height="14" rx="3" fill="#0B8F8C"/>
+    <path fill="none" stroke="#27C2D1" stroke-width="8" stroke-linecap="round"
+          d="M48 44 V34 C48 24 56 18 64 18 C72 18 80 24 80 34 V44"/>
+    <circle cx="64" cy="78" r="7" fill="#F4FAFC"/>
+    <rect x="60" y="78" width="8" height="14" rx="2" fill="#F4FAFC"/>
+  </g>
+  <text x="120" y="168" text-anchor="middle"
+        font-family="Segoe UI, Helvetica Neue, Arial, sans-serif"
+        font-size="36" font-weight="700" fill="#0A1830">ShiftLock</text>
+  <text x="120" y="192" text-anchor="middle"
+        font-family="Segoe UI, Helvetica Neue, Arial, sans-serif"
+        font-size="12" font-weight="500" fill="#0B8F8C" letter-spacing="2">RUNTIME CONTROL</text>
+</svg>

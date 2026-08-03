@@ -1,0 +1,40 @@
+name: Nightly / stress stubs
+
+# Intentionally NOT multi-hour in PR CI. Manual or scheduled short bursts only.
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cert-matrix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.x"
+      - name: Memory + Redis Local certification
+        run: |
+          go test ./backend/memory -run TestCertification -count=1
+          go test ./backend/redis -run TestLocalCertification -count=1
+          go test ./backend/kubernetes -run TestCertification -count=1
+      - name: Chaos lab scenarios
+        run: go test ./lab -count=1
+
+  stress-short:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.x"
+      - name: Short stress burst (tagged)
+        run: go test -tags=stress ./stress -count=1 -timeout 5m
