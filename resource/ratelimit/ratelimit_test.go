@@ -1,6 +1,7 @@
 package ratelimit
 
 import (
+	"context"
 	"testing"
 
 	"github.com/theworker02/shiftlock/resource"
@@ -26,7 +27,7 @@ func TestTokenBucket(t *testing.T) {
 	}
 	r.Release()
 	r.Release()
-	snap, _ := r.Snapshot(nil)
+	snap, _ := r.Snapshot(context.TODO())
 	if snap["rejected"] == "0" {
 		t.Fatal("expected rejection counted")
 	}
