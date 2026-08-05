@@ -1,0 +1,270 @@
+$ go version
+go version go1.25.12 linux/amd64
+$ gofmt -l .
+audit/audit.go
+backend/faultinject/faultinject.go
+backend/kubernetes/kubernetes.go
+backend/memory/memory.go
+backend/redis/redis.go
+barrier/barrier.go
+budget/budget.go
+cmd/shiftlock/fabric.go
+cmd/shiftlock/main.go
+cmd/shiftlock-inspect/readiness.go
+control/command/command.go
+control/lockdown/lockdown.go
+control/maintenance/maintenance.go
+control/snapshot/snapshot_test.go
+coordinator.go
+coordinator_test.go
+election/election.go
+errors.go
+event.go
+examples/runtime-supervisor/main.go
+failover/failover.go
+guard/guard.go
+health.go
+internal/simulation/scenario.go
+journal/journal.go
+migration/migration.go
+model/generator.go
+model/invariant.go
+model/state.go
+promotion/promotion.go
+readiness.go
+recovery/playbook/playbook.go
+resource/bundle.go
+resource/cache/generation_test.go
+resource/capabilities.go
+resource/drift.go
+resource/errors.go
+resource/evidence.go
+resource/health.go
+resource/kind.go
+resource/lease.go
+resource/memory/memory.go
+resource/ratelimit/ratelimit.go
+resource/registry.go
+resource/resource.go
+resource/service/http/http.go
+resource/storage/object/object.go
+runtime.go
+secrets/rotation.go
+secrets/secrets.go
+security/antireplay/antireplay.go
+security/attestation/attestation.go
+security/redteam/redteam.go
+security/scanner/scanner.go
+security/signing/signing.go
+shiftlockcert/cert.go
+state.go
+supervise/supervise.go
+sync/sync.go
+syncprim/syncprim.go
+syncprim/syncprim_test.go
+workflow/definition.go
+workflow/engine.go
+workflow/errors.go
+workflow/hooks.go
+workflow/state.go
+$ go test ./...
+ok  	github.com/theworker02/shiftlock	(cached)
+ok  	github.com/theworker02/shiftlock/audit	(cached)
+?   	github.com/theworker02/shiftlock/backend/backendtest	[no test files]
+?   	github.com/theworker02/shiftlock/backend/faultinject	[no test files]
+ok  	github.com/theworker02/shiftlock/backend/kubernetes	(cached)
+ok  	github.com/theworker02/shiftlock/backend/memory	(cached)
+ok  	github.com/theworker02/shiftlock/backend/postgres	(cached)
+ok  	github.com/theworker02/shiftlock/backend/redis	(cached)
+ok  	github.com/theworker02/shiftlock/barrier	(cached)
+ok  	github.com/theworker02/shiftlock/budget	(cached)
+ok  	github.com/theworker02/shiftlock/capability	(cached)
+?   	github.com/theworker02/shiftlock/cmd/shiftlock	[no test files]
+?   	github.com/theworker02/shiftlock/cmd/shiftlock-agent	[no test files]
+?   	github.com/theworker02/shiftlock/cmd/shiftlock-inspect	[no test files]
+?   	github.com/theworker02/shiftlock/cmd/shiftlock-loadtest	[no test files]
+ok  	github.com/theworker02/shiftlock/configlock	(cached)
+ok  	github.com/theworker02/shiftlock/control/command	(cached)
+ok  	github.com/theworker02/shiftlock/control/execguard	(cached)
+ok  	github.com/theworker02/shiftlock/control/lockdown	(cached)
+ok  	github.com/theworker02/shiftlock/control/maintenance	(cached)
+ok  	github.com/theworker02/shiftlock/control/snapshot	(cached)
+ok  	github.com/theworker02/shiftlock/election	(cached)
+?   	github.com/theworker02/shiftlock/examples/capability-authorization	[no test files]
+?   	github.com/theworker02/shiftlock/examples/developer-tool	[no test files]
+?   	github.com/theworker02/shiftlock/examples/ecommerce-platform	[no test files]
+?   	github.com/theworker02/shiftlock/examples/edge-sync-agent	[no test files]
+?   	github.com/theworker02/shiftlock/examples/emergency-lockdown	[no test files]
+?   	github.com/theworker02/shiftlock/examples/infrastructure-orchestrator	[no test files]
+?   	github.com/theworker02/shiftlock/examples/kubernetes-worker	[no test files]
+?   	github.com/theworker02/shiftlock/examples/leader-election	[no test files]
+?   	github.com/theworker02/shiftlock/examples/maintenance-mode	[no test files]
+?   	github.com/theworker02/shiftlock/examples/media-processing-pipeline	[no test files]
+?   	github.com/theworker02/shiftlock/examples/object-store-sync	[no test files]
+?   	github.com/theworker02/shiftlock/examples/order-platform	[no test files]
+?   	github.com/theworker02/shiftlock/examples/quorum-deployment	[no test files]
+?   	github.com/theworker02/shiftlock/examples/rolling-handoff	[no test files]
+?   	github.com/theworker02/shiftlock/examples/runtime-supervisor	[no test files]
+?   	github.com/theworker02/shiftlock/examples/secure-control-plane	[no test files]
+?   	github.com/theworker02/shiftlock/examples/singleton-worker	[no test files]
+ok  	github.com/theworker02/shiftlock/failover	(cached)
+?   	github.com/theworker02/shiftlock/fencing/memory	[no test files]
+?   	github.com/theworker02/shiftlock/fencing/postgres	[no test files]
+?   	github.com/theworker02/shiftlock/fencing/redis	[no test files]
+ok  	github.com/theworker02/shiftlock/guard	(cached)
+ok  	github.com/theworker02/shiftlock/health	(cached)
+?   	github.com/theworker02/shiftlock/identity	[no test files]
+?   	github.com/theworker02/shiftlock/identity/aws	[no test files]
+?   	github.com/theworker02/shiftlock/identity/environment	[no test files]
+?   	github.com/theworker02/shiftlock/identity/hostname	[no test files]
+?   	github.com/theworker02/shiftlock/identity/pod	[no test files]
+?   	github.com/theworker02/shiftlock/integration/grpcserver	[no test files]
+?   	github.com/theworker02/shiftlock/integration/httpserver	[no test files]
+?   	github.com/theworker02/shiftlock/integration/kafka	[no test files]
+?   	github.com/theworker02/shiftlock/integration/nats	[no test files]
+?   	github.com/theworker02/shiftlock/integration/rabbitmq	[no test files]
+?   	github.com/theworker02/shiftlock/integration/scheduler	[no test files]
+?   	github.com/theworker02/shiftlock/integration/sqs	[no test files]
+ok  	github.com/theworker02/shiftlock/internal/simulation	(cached)
+?   	github.com/theworker02/shiftlock/internal/stategraph	[no test files]
+?   	github.com/theworker02/shiftlock/internal/supervisor	[no test files]
+?   	github.com/theworker02/shiftlock/internal/testclock	[no test files]
+?   	github.com/theworker02/shiftlock/journal	[no test files]
+?   	github.com/theworker02/shiftlock/journal/file	[no test files]
+ok  	github.com/theworker02/shiftlock/lab	(cached)
+ok  	github.com/theworker02/shiftlock/migration	(cached)
+ok  	github.com/theworker02/shiftlock/migration/dualwrite	(cached)
+ok  	github.com/theworker02/shiftlock/model	(cached)
+?   	github.com/theworker02/shiftlock/observe/otel	[no test files]
+?   	github.com/theworker02/shiftlock/observe/prometheus	[no test files]
+?   	github.com/theworker02/shiftlock/observe/slog	[no test files]
+ok  	github.com/theworker02/shiftlock/promotion	(cached)
+ok  	github.com/theworker02/shiftlock/reconcile	(cached)
+ok  	github.com/theworker02/shiftlock/recovery/playbook	(cached)
+ok  	github.com/theworker02/shiftlock/resource	(cached)
+ok  	github.com/theworker02/shiftlock/resource/cache	(cached)
+ok  	github.com/theworker02/shiftlock/resource/cache/memory	(cached)
+ok  	github.com/theworker02/shiftlock/resource/cache/redis	(cached)
+ok  	github.com/theworker02/shiftlock/resource/database/postgres	(cached)
+?   	github.com/theworker02/shiftlock/resource/memory	[no test files]
+ok  	github.com/theworker02/shiftlock/resource/queue	(cached)
+ok  	github.com/theworker02/shiftlock/resource/ratelimit	(cached)
+?   	github.com/theworker02/shiftlock/resource/resourcetest	[no test files]
+ok  	github.com/theworker02/shiftlock/resource/service/http	(cached)
+ok  	github.com/theworker02/shiftlock/resource/storage/filesystem	(cached)
+ok  	github.com/theworker02/shiftlock/resource/storage/object	(cached)
+?   	github.com/theworker02/shiftlock/resource/storage/object/memory	[no test files]
+ok  	github.com/theworker02/shiftlock/secrets	(cached)
+ok  	github.com/theworker02/shiftlock/security/antireplay	(cached)
+ok  	github.com/theworker02/shiftlock/security/attestation	(cached)
+ok  	github.com/theworker02/shiftlock/security/redteam	(cached)
+ok  	github.com/theworker02/shiftlock/security/scanner	(cached)
+ok  	github.com/theworker02/shiftlock/security/signing	(cached)
+ok  	github.com/theworker02/shiftlock/shiftlockcert	(cached)
+?   	github.com/theworker02/shiftlock/stress	[no test files]
+ok  	github.com/theworker02/shiftlock/supervise	(cached)
+ok  	github.com/theworker02/shiftlock/sync	(cached)
+ok  	github.com/theworker02/shiftlock/syncprim	(cached)
+?   	github.com/theworker02/shiftlock/testutil	[no test files]
+ok  	github.com/theworker02/shiftlock/workflow	(cached)
+$ go test -race ./...
+ok  	github.com/theworker02/shiftlock	(cached)
+ok  	github.com/theworker02/shiftlock/audit	(cached)
+?   	github.com/theworker02/shiftlock/backend/backendtest	[no test files]
+?   	github.com/theworker02/shiftlock/backend/faultinject	[no test files]
+ok  	github.com/theworker02/shiftlock/backend/kubernetes	(cached)
+ok  	github.com/theworker02/shiftlock/backend/memory	(cached)
+ok  	github.com/theworker02/shiftlock/backend/postgres	(cached)
+ok  	github.com/theworker02/shiftlock/backend/redis	(cached)
+ok  	github.com/theworker02/shiftlock/barrier	(cached)
+ok  	github.com/theworker02/shiftlock/budget	(cached)
+ok  	github.com/theworker02/shiftlock/capability	(cached)
+?   	github.com/theworker02/shiftlock/cmd/shiftlock	[no test files]
+?   	github.com/theworker02/shiftlock/cmd/shiftlock-agent	[no test files]
+?   	github.com/theworker02/shiftlock/cmd/shiftlock-inspect	[no test files]
+?   	github.com/theworker02/shiftlock/cmd/shiftlock-loadtest	[no test files]
+ok  	github.com/theworker02/shiftlock/configlock	(cached)
+ok  	github.com/theworker02/shiftlock/control/command	(cached)
+ok  	github.com/theworker02/shiftlock/control/execguard	(cached)
+ok  	github.com/theworker02/shiftlock/control/lockdown	(cached)
+ok  	github.com/theworker02/shiftlock/control/maintenance	(cached)
+ok  	github.com/theworker02/shiftlock/control/snapshot	(cached)
+ok  	github.com/theworker02/shiftlock/election	(cached)
+?   	github.com/theworker02/shiftlock/examples/capability-authorization	[no test files]
+?   	github.com/theworker02/shiftlock/examples/developer-tool	[no test files]
+?   	github.com/theworker02/shiftlock/examples/ecommerce-platform	[no test files]
+?   	github.com/theworker02/shiftlock/examples/edge-sync-agent	[no test files]
+?   	github.com/theworker02/shiftlock/examples/emergency-lockdown	[no test files]
+?   	github.com/theworker02/shiftlock/examples/infrastructure-orchestrator	[no test files]
+?   	github.com/theworker02/shiftlock/examples/kubernetes-worker	[no test files]
+?   	github.com/theworker02/shiftlock/examples/leader-election	[no test files]
+?   	github.com/theworker02/shiftlock/examples/maintenance-mode	[no test files]
+?   	github.com/theworker02/shiftlock/examples/media-processing-pipeline	[no test files]
+?   	github.com/theworker02/shiftlock/examples/object-store-sync	[no test files]
+?   	github.com/theworker02/shiftlock/examples/order-platform	[no test files]
+?   	github.com/theworker02/shiftlock/examples/quorum-deployment	[no test files]
+?   	github.com/theworker02/shiftlock/examples/rolling-handoff	[no test files]
+?   	github.com/theworker02/shiftlock/examples/runtime-supervisor	[no test files]
+?   	github.com/theworker02/shiftlock/examples/secure-control-plane	[no test files]
+?   	github.com/theworker02/shiftlock/examples/singleton-worker	[no test files]
+ok  	github.com/theworker02/shiftlock/failover	(cached)
+?   	github.com/theworker02/shiftlock/fencing/memory	[no test files]
+?   	github.com/theworker02/shiftlock/fencing/postgres	[no test files]
+?   	github.com/theworker02/shiftlock/fencing/redis	[no test files]
+ok  	github.com/theworker02/shiftlock/guard	(cached)
+ok  	github.com/theworker02/shiftlock/health	(cached)
+?   	github.com/theworker02/shiftlock/identity	[no test files]
+?   	github.com/theworker02/shiftlock/identity/aws	[no test files]
+?   	github.com/theworker02/shiftlock/identity/environment	[no test files]
+?   	github.com/theworker02/shiftlock/identity/hostname	[no test files]
+?   	github.com/theworker02/shiftlock/identity/pod	[no test files]
+?   	github.com/theworker02/shiftlock/integration/grpcserver	[no test files]
+?   	github.com/theworker02/shiftlock/integration/httpserver	[no test files]
+?   	github.com/theworker02/shiftlock/integration/kafka	[no test files]
+?   	github.com/theworker02/shiftlock/integration/nats	[no test files]
+?   	github.com/theworker02/shiftlock/integration/rabbitmq	[no test files]
+?   	github.com/theworker02/shiftlock/integration/scheduler	[no test files]
+?   	github.com/theworker02/shiftlock/integration/sqs	[no test files]
+ok  	github.com/theworker02/shiftlock/internal/simulation	(cached)
+?   	github.com/theworker02/shiftlock/internal/stategraph	[no test files]
+?   	github.com/theworker02/shiftlock/internal/supervisor	[no test files]
+?   	github.com/theworker02/shiftlock/internal/testclock	[no test files]
+?   	github.com/theworker02/shiftlock/journal	[no test files]
+?   	github.com/theworker02/shiftlock/journal/file	[no test files]
+ok  	github.com/theworker02/shiftlock/lab	(cached)
+ok  	github.com/theworker02/shiftlock/migration	(cached)
+ok  	github.com/theworker02/shiftlock/migration/dualwrite	(cached)
+ok  	github.com/theworker02/shiftlock/model	(cached)
+?   	github.com/theworker02/shiftlock/observe/otel	[no test files]
+?   	github.com/theworker02/shiftlock/observe/prometheus	[no test files]
+?   	github.com/theworker02/shiftlock/observe/slog	[no test files]
+ok  	github.com/theworker02/shiftlock/promotion	(cached)
+ok  	github.com/theworker02/shiftlock/reconcile	(cached)
+ok  	github.com/theworker02/shiftlock/recovery/playbook	(cached)
+ok  	github.com/theworker02/shiftlock/resource	(cached)
+ok  	github.com/theworker02/shiftlock/resource/cache	(cached)
+ok  	github.com/theworker02/shiftlock/resource/cache/memory	(cached)
+ok  	github.com/theworker02/shiftlock/resource/cache/redis	(cached)
+ok  	github.com/theworker02/shiftlock/resource/database/postgres	(cached)
+?   	github.com/theworker02/shiftlock/resource/memory	[no test files]
+ok  	github.com/theworker02/shiftlock/resource/queue	(cached)
+ok  	github.com/theworker02/shiftlock/resource/ratelimit	(cached)
+?   	github.com/theworker02/shiftlock/resource/resourcetest	[no test files]
+ok  	github.com/theworker02/shiftlock/resource/service/http	(cached)
+ok  	github.com/theworker02/shiftlock/resource/storage/filesystem	(cached)
+ok  	github.com/theworker02/shiftlock/resource/storage/object	(cached)
+?   	github.com/theworker02/shiftlock/resource/storage/object/memory	[no test files]
+ok  	github.com/theworker02/shiftlock/secrets	(cached)
+ok  	github.com/theworker02/shiftlock/security/antireplay	(cached)
+ok  	github.com/theworker02/shiftlock/security/attestation	(cached)
+ok  	github.com/theworker02/shiftlock/security/redteam	(cached)
+ok  	github.com/theworker02/shiftlock/security/scanner	(cached)
+ok  	github.com/theworker02/shiftlock/security/signing	(cached)
+ok  	github.com/theworker02/shiftlock/shiftlockcert	(cached)
+?   	github.com/theworker02/shiftlock/stress	[no test files]
+ok  	github.com/theworker02/shiftlock/supervise	(cached)
+ok  	github.com/theworker02/shiftlock/sync	(cached)
+ok  	github.com/theworker02/shiftlock/syncprim	(cached)
+?   	github.com/theworker02/shiftlock/testutil	[no test files]
+ok  	github.com/theworker02/shiftlock/workflow	(cached)
+$ go vet ./...
