@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
           go-version: ${{ matrix.go }}
@@ -30,7 +30,6 @@ jobs:
         run: go vet ./...
       - name: Dependency discipline
         run: |
-          # Core module must stay stdlib-only (no require directives).
           if grep -E '^require[[:space:]]' go.mod; then
             echo "unexpected direct requires in core go.mod — keep cloud/k8s/TUI isolated"
             exit 1
@@ -42,7 +41,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
           go-version: "1.26.x"
@@ -56,7 +55,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v5
       - uses: actions/setup-go@v6
         with:
           go-version: "1.26.x"
