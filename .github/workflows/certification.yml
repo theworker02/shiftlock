@@ -15,8 +15,8 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
         with:
           go-version: "1.26.x"
       - name: Backend certification (memory)
@@ -29,5 +29,5 @@ jobs:
         run: go test ./model -count=1
       - name: Simulation
         run: go test ./internal/simulation -count=1
-      - name: Chaos lab
+      - name: Lab tests
         run: go test ./lab -count=1
