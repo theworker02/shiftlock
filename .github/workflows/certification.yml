@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: certification-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cert:
     runs-on: ubuntu-latest
