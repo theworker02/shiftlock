@@ -22,19 +22,46 @@ jobs:
         with:
           go-version-file: go.mod
           check-latest: true
-      - name: Verify source
+      - name: Verify source and record diagnostics
+        id: verify
+        shell: bash
         run: |
-          set -euo pipefail
-          test -z "$(gofmt -l .)"
-          go test ./...
-          go test -race ./...
-          go vet ./...
+          set +e
+          {
+            echo '$ go version'
+            go version
+            echo '$ gofmt -l .'
+            UNFORMATTED=$(gofmt -l .)
+            printf '%s\n' "$UNFORMATTED"
+            test -z "$UNFORMATTED"
+            echo '$ go test ./...'
+            go test ./...
+            echo '$ go test -race ./...'
+            go test -race ./...
+            echo '$ go vet ./...'
+            go vet ./...
+          } > validation.log 2>&1
+          STATUS=$?
+          set -e
+          cat validation.log
+          if [ "$STATUS" -ne 0 ]; then
+            mkdir -p .release-status
+            cp validation.log .release-status/v0.9.0-failure.txt
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            rm -f .github/workflows/finalize-v0.9.0.yml
+            git add -A
+            git commit -m "Record ShiftLock v0.9.0 validation failure"
+            git push origin HEAD:main
+            exit "$STATUS"
+          fi
       - name: Remove one-time workflow and tag clean source
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           rm .github/workflows/finalize-v0.9.0.yml
+          rm -f .release-status/v0.9.0-failure.txt
           git add -A
           git commit -m "Prepare ShiftLock v0.9.0 release"
           git push origin HEAD:main
