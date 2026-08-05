@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: shiftlock-nightly
+  cancel-in-progress: true
+
 jobs:
   cert-matrix:
     runs-on: ubuntu-latest
@@ -24,7 +28,7 @@ jobs:
           go test ./backend/memory -run TestCertification -count=1
           go test ./backend/redis -run TestLocalCertification -count=1
           go test ./backend/kubernetes -run TestCertification -count=1
-      - name: Chaos lab scenarios
+      - name: Lab scenarios
         run: go test ./lab -count=1
 
   stress-short:
