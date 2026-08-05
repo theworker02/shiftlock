@@ -2,6 +2,7 @@
 package health
 
 import (
+	"sort"
 	"time"
 )
 
@@ -28,13 +29,13 @@ type Node struct {
 
 // Report is a graph-oriented health snapshot.
 type Report struct {
-	Time     time.Time `json:"time"`
-	Overall  Status    `json:"overall"`
-	Nodes    []Node    `json:"nodes"`
-	Edges    []Edge    `json:"edges,omitempty"`
+	Time    time.Time `json:"time"`
+	Overall Status    `json:"overall"`
+	Nodes   []Node    `json:"nodes"`
+	Edges   []Edge    `json:"edges,omitempty"`
 }
 
-// Edge relates nodes (dependency).
+// Edge relates nodes (dependency). From depends on To.
 type Edge struct {
 	From string `json:"from"`
 	To   string `json:"to"`
@@ -62,6 +63,7 @@ func (b *Builder) Link(from, to string) {
 }
 
 // Build computes overall status (worst-wins with lockdown/quarantine priority).
+// Nodes and edges are sorted so identical runtime state produces identical JSON.
 func (b *Builder) Build(now time.Time) Report {
 	rep := Report{Time: now, Edges: append([]Edge(nil), b.edges...)}
 	worst := Healthy
@@ -72,6 +74,13 @@ func (b *Builder) Build(now time.Time) Report {
 	if len(b.nodes) == 0 {
 		worst = Unknown
 	}
+	sort.Slice(rep.Nodes, func(i, j int) bool { return rep.Nodes[i].Name < rep.Nodes[j].Name })
+	sort.Slice(rep.Edges, func(i, j int) bool {
+		if rep.Edges[i].From != rep.Edges[j].From {
+			return rep.Edges[i].From < rep.Edges[j].From
+		}
+		return rep.Edges[i].To < rep.Edges[j].To
+	})
 	rep.Overall = worst
 	return rep
 }
