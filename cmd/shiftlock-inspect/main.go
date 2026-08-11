@@ -51,6 +51,8 @@ func main() {
 		runReadinessReport(os.Args[2:])
 	case "rehearse-handoff":
 		runRehearseHandoff(os.Args[2:])
+	case "impact-plan":
+		runImpactPlan(os.Args[2:])
 	case "-h", "-help", "--help", "help":
 		printHelp()
 	default:
@@ -69,6 +71,7 @@ Usage:
   shiftlock-inspect recovery abort-transfer|release [flags]
   shiftlock-inspect readiness-report [-format text|json|sarif] [-out PATH]
   shiftlock-inspect rehearse-handoff [-claim NAME]
+  shiftlock-inspect impact-plan -failed NODE [-json]
 
 Recovery flags (required for mutate):
   --expected-owner  --expected-token  --reason  --confirm  [--dry-run]
