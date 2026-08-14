@@ -23,16 +23,23 @@ func runImpactPlan(args []string) {
 
 	plan := sampleHealthReport().PlanImpact(*failed)
 	if *jsonOut {
+		payload := struct {
+			health.ImpactPlan
+			Waves []health.Wave `json:"waves"`
+		}{ImpactPlan: plan, Waves: plan.Waves()}
 		enc := json.NewEncoder(os.Stdout)
 		enc.SetIndent("", "  ")
-		_ = enc.Encode(plan)
+		_ = enc.Encode(payload)
 		return
 	}
 
-	fmt.Printf("failed=%s blast_radius=%v actions=%d issues=%d\n",
-		plan.Failed, plan.BlastRadius, len(plan.Actions), len(plan.Issues))
-	for _, action := range plan.Actions {
-		fmt.Printf("  [%d] %s %s — %s\n", action.Priority, action.Node, action.Kind, action.Reason)
+	fmt.Printf("failed=%s blast_radius=%v actions=%d issues=%d waves=%d\n",
+		plan.Failed, plan.BlastRadius, len(plan.Actions), len(plan.Issues), len(plan.Waves()))
+	for _, wave := range plan.Waves() {
+		fmt.Printf("wave %d (priority %d)\n", wave.Index, wave.Priority)
+		for _, action := range wave.Actions {
+			fmt.Printf("  [%d] %s %s — %s\n", action.Priority, action.Node, action.Kind, action.Reason)
+		}
 	}
 }
 

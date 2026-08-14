@@ -13,7 +13,7 @@
 <p align="center">
   <a href="https://pkg.go.dev/github.com/theworker02/shiftlock"><img src="https://pkg.go.dev/badge/github.com/theworker02/shiftlock.svg" alt="Go Reference"/></a>
   <a href="https://github.com/theworker02/shiftlock/actions/workflows/ci.yml"><img src="https://github.com/theworker02/shiftlock/actions/workflows/ci.yml/badge.svg" alt="CI"/></a>
-  <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.10.0"><img src="https://img.shields.io/github/v/release/theworker02/shiftlock?include_prereleases&sort=semver" alt="Release"/></a>
+  <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.11.0"><img src="https://img.shields.io/github/v/release/theworker02/shiftlock?include_prereleases&sort=semver" alt="Release"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"/></a>
 </p>
 
@@ -22,7 +22,7 @@
   ·
   <a href="https://pkg.go.dev/github.com/theworker02/shiftlock"><strong>Go module docs</strong></a>
   ·
-  <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.10.0">v0.10.0</a>
+  <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.11.0">v0.11.0</a>
   ·
   <a href="docs/architecture.md">Architecture</a>
   ·
@@ -41,11 +41,11 @@ workflows, databases, queues, and APIs.
 | | |
 |---|---|
 | **Module path** | [`github.com/theworker02/shiftlock`](https://pkg.go.dev/github.com/theworker02/shiftlock) |
-| **Latest release** | [`v0.10.0`](https://pkg.go.dev/github.com/theworker02/shiftlock@v0.10.0) |
+| **Latest release** | [`v0.11.0`](https://pkg.go.dev/github.com/theworker02/shiftlock@v0.11.0) |
 | **Repository** | [github.com/theworker02/shiftlock](https://github.com/theworker02/shiftlock) |
 
 ```bash
-go get github.com/theworker02/shiftlock@v0.10.0
+go get github.com/theworker02/shiftlock@v0.11.0
 ```
 
 Supports the current and previous stable Go releases. Core stays stdlib-first;
