@@ -88,6 +88,43 @@ func TestImpactPlanEmpty(t *testing.T) {
 	if !plan.Empty() {
 		t.Fatal("zero plan should be empty")
 	}
+	if waves := plan.Waves(); waves != nil {
+		t.Fatalf("empty plan waves = %#v", waves)
+	}
+}
+
+func TestImpactPlanWavesGroupByPriority(t *testing.T) {
+	plan := sampleReport().PlanImpact("database")
+	waves := plan.Waves()
+	if len(waves) < 2 {
+		t.Fatalf("expected multiple waves, got %#v", waves)
+	}
+	if waves[0].Index != 0 || waves[0].Priority != plan.Actions[0].Priority {
+		t.Fatalf("first wave = %#v", waves[0])
+	}
+	seen := 0
+	lastPriority := -1
+	for i, wave := range waves {
+		if wave.Index != i {
+			t.Fatalf("wave %d index = %d", i, wave.Index)
+		}
+		if lastPriority >= 0 && wave.Priority < lastPriority {
+			t.Fatalf("waves are not priority-ordered: %#v", waves)
+		}
+		lastPriority = wave.Priority
+		if len(wave.Actions) == 0 {
+			t.Fatalf("wave %d has no actions", i)
+		}
+		for _, action := range wave.Actions {
+			if action.Priority != wave.Priority {
+				t.Fatalf("action %#v not in matching wave %#v", action, wave)
+			}
+			seen++
+		}
+	}
+	if seen != len(plan.Actions) {
+		t.Fatalf("wave actions %d != plan actions %d", seen, len(plan.Actions))
+	}
 }
 
 func TestPlanImpactUpstreamObserve(t *testing.T) {

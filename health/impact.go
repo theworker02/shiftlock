@@ -29,9 +29,38 @@ type ImpactPlan struct {
 	Issues      []ValidationIssue `json:"issues,omitempty"`
 }
 
+// Wave is one execution slice of an impact plan. Actions that share a
+// priority run together; lower-index waves should complete first.
+type Wave struct {
+	Index    int             `json:"index"`
+	Priority int             `json:"priority"`
+	Actions  []PlannedAction `json:"actions"`
+}
+
 // Empty reports whether the plan carries no failure context or work items.
 func (p ImpactPlan) Empty() bool {
 	return p.Failed == "" && len(p.BlastRadius) == 0 && len(p.Actions) == 0 && len(p.Issues) == 0
+}
+
+// Waves groups planned actions into priority-ordered execution waves.
+// Actions are already sorted by PlanImpact; grouping is stable.
+func (p ImpactPlan) Waves() []Wave {
+	if len(p.Actions) == 0 {
+		return nil
+	}
+	waves := make([]Wave, 0)
+	current := Wave{Index: 0, Priority: p.Actions[0].Priority}
+	for _, action := range p.Actions {
+		if action.Priority != current.Priority && len(current.Actions) > 0 {
+			waves = append(waves, current)
+			current = Wave{Index: len(waves), Priority: action.Priority}
+		}
+		current.Actions = append(current.Actions, action)
+	}
+	if len(current.Actions) > 0 {
+		waves = append(waves, current)
+	}
+	return waves
 }
 
 // PlanImpact derives blast radius and recommended actions for a failed node.
