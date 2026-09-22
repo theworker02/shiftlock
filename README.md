@@ -15,7 +15,7 @@ This project is **proprietary**. Production use, redistribution, and commercial 
 <p align="center">
   <strong>A security-first Go resource fabric</strong><br/>
   Coordinate ownership, supervise workloads, enforce runtime policy,<br/>
-  and lock down sensitive operations â€” without a hosted control plane.
+  and lock down sensitive operations Ã¢â‚¬â€ without a hosted control plane.
 </p>
 
 <p align="center">
@@ -27,21 +27,21 @@ This project is **proprietary**. Production use, redistribution, and commercial 
 
 <p align="center">
   <a href="https://theworker02.github.io/shiftlock/"><strong>Docs site</strong></a>
-  Â·
+  Ã‚Â·
   <a href="https://pkg.go.dev/github.com/theworker02/shiftlock"><strong>Go module docs</strong></a>
-  Â·
+  Ã‚Â·
   <a href="https://github.com/theworker02/shiftlock/releases/tag/v0.11.0">v0.11.0</a>
-  Â·
+  Ã‚Â·
   <a href="docs/architecture.md">Architecture</a>
-  Â·
+  Ã‚Â·
   <a href="docs/problems/README.md">Problem guides</a>
 </p>
 
 ---
 
 Graceful shutdown stops an old process. **ShiftLock** decides who may perform
-protected work next â€” with fencing tokens so a stale process cannot keep acting
-after losing ownership â€” and optionally extends that same model to supervisors,
+protected work next Ã¢â‚¬â€ with fencing tokens so a stale process cannot keep acting
+after losing ownership Ã¢â‚¬â€ and optionally extends that same model to supervisors,
 workflows, databases, queues, and APIs.
 
 ## Go module
@@ -129,10 +129,10 @@ lease, err := claim.WaitForOwnership(ctx)
 handoff, err := coordinator.PrepareHandoff(ctx)
 _ = handoff.Drain(ctx)
 _ = handoff.Transfer(ctx, successorGenerationID)
-_ = handoff.Commit(ctx) // or Abort â€” rolls back reservation safely
+_ = handoff.Commit(ctx) // or Abort Ã¢â‚¬â€ rolls back reservation safely
 ```
 
-Generation flow: `joining â†’ standby â†’ preparing â†’ active â†’ draining â†’ transferring â†’ retired | failed`.
+Generation flow: `joining Ã¢â€ â€™ standby Ã¢â€ â€™ preparing Ã¢â€ â€™ active Ã¢â€ â€™ draining Ã¢â€ â€™ transferring Ã¢â€ â€™ retired | failed`.
 
 ## Runtime & security (opt-in)
 
@@ -151,7 +151,7 @@ _ = rt.Capabilities()
 ```
 
 Existing `shiftlock.New` / Coordinator APIs stay unchanged. See
-[Phase 5â†’6 migration](docs/migration/phase-5-to-phase-6.md).
+[Phase 5Ã¢â€ â€™6 migration](docs/migration/phase-5-to-phase-6.md).
 
 ## Resource fabric (opt-in)
 
@@ -193,7 +193,7 @@ go run ./cmd/shiftlock-inspect timeline -journal events.ndjson -claim NAME
 go run ./cmd/shiftlock-inspect readiness-report -format json
 ```
 
-Destructive recovery requires `--expected-owner`, `--expected-token`, `--reason`, and `--confirm` â€” never a blind force-unlock.
+Destructive recovery requires `--expected-owner`, `--expected-token`, `--reason`, and `--confirm` Ã¢â‚¬â€ never a blind force-unlock.
 
 ## Documentation site
 
@@ -209,8 +209,8 @@ mkdocs serve -f docs/site/mkdocs.yml
 ```
 
 Deploy uses [`.github/workflows/pages.yml`](.github/workflows/pages.yml). In the
-repo **Settings â†’ Pages**, set the source to **GitHub Actions** (not a branch
-folder). Site Python deps are in `requirements-docs.txt` only â€” not `go.mod`.
+repo **Settings Ã¢â€ â€™ Pages**, set the source to **GitHub Actions** (not a branch
+folder). Site Python deps are in `requirements-docs.txt` only Ã¢â‚¬â€ not `go.mod`.
 
 ## Documentation
 
@@ -228,4 +228,8 @@ folder). Site Python deps are in `requirements-docs.txt` only â€” not `go.m
 
 ## License
 
-**Source-available proprietary** — evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
+**Source-available proprietary** â€” evaluation under [LICENSE](./LICENSE); commercial / production use via [COMMERCIAL.md](./COMMERCIAL.md). See [LICENSE_TRANSITION_NOTICE.md](./LICENSE_TRANSITION_NOTICE.md) and [NOTICE](./NOTICE).
+
+## Acquisition diligence
+
+Buyer-facing diligence materials live in [docs/acquisition/](./docs/acquisition/). Commercial licensing contact path: [COMMERCIAL.md](./COMMERCIAL.md).
