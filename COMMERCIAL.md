@@ -1,4 +1,4 @@
-﻿# Commercial licensing — shiftlock
+# Commercial licensing — shiftlock
 
 shiftlock is **source-available proprietary software**, not open source.
 
@@ -33,3 +33,7 @@ Read [`LICENSE_TRANSITION_NOTICE.md`](./LICENSE_TRANSITION_NOTICE.md) for the di
 
 **Primary:** GitHub [@theworker02](https://github.com/theworker02)  
 **Repository:** https://github.com/theworker02/shiftlock
+
+## After sale
+
+A completed acquisition or commercial license does **not** automatically convert ShiftLock to open source. Post-closing rights are only those granted in the definitive agreement; absent an express open-source relicense, the Product stays proprietary.
