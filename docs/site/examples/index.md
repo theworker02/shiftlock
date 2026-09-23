@@ -1,4 +1,4 @@
-﻿# Examples
+# Examples
 
 ```bash
 go run ./examples/singleton-worker

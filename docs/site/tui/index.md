@@ -1,4 +1,4 @@
-﻿# TUI
+# TUI
 
 A full interactive TUI is **deferred**. Optional stub:
 

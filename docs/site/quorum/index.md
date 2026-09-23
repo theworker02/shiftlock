@@ -1,4 +1,4 @@
-﻿# Quorum
+# Quorum
 
 Quorum is expressed via barrier `PolicyQuorum` (majority of MaxParticipants) and Runtime `Quorum()` helpers.
 

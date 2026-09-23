@@ -1,4 +1,4 @@
-﻿# Configuration
+# Configuration
 
 Package `configlock`: draft → staged → validated → approved → active.
 

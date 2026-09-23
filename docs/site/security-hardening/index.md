@@ -1,4 +1,4 @@
-﻿# Security Hardening
+# Security Hardening
 
 Canonical model:
 [docs/security-model.md](https://github.com/theworker02/shiftlock/blob/main/docs/security-model.md).

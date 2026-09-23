@@ -1,4 +1,4 @@
-﻿# Barriers
+# Barriers
 
 Package `barrier` coordinates multi-participant release with policies: minimum-count, exact, quorum, all.
 

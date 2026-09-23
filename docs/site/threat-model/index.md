@@ -1,4 +1,4 @@
-﻿# Threat Model
+# Threat Model
 
 Canonical document:
 [docs/threat-model.md](https://github.com/theworker02/shiftlock/blob/main/docs/threat-model.md).

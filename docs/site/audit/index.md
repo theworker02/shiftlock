@@ -1,4 +1,4 @@
-﻿# Audit
+# Audit
 
 Package `audit`: hash-chained, optionally signed records.
 

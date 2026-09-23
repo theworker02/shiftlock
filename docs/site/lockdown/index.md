@@ -1,4 +1,4 @@
-﻿# Lockdown
+# Lockdown
 
 Package `control/lockdown`: fail-closed emergency stop.
 

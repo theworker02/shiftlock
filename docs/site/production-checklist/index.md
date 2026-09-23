@@ -1,4 +1,4 @@
-﻿# Production Checklist
+# Production Checklist
 
 Before running ShiftLock in production:
 
