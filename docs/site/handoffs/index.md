@@ -1,4 +1,4 @@
-﻿# Handoffs
+# Handoffs
 
 Controlled ownership transfer: prepare → drain → transfer → commit (or abort with restore).
 

@@ -1,4 +1,4 @@
-﻿# Security Policies
+# Security Policies
 
 Package `guard` is a deterministic allow/deny/approval engine with `Explain()`.
 

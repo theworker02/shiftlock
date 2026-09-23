@@ -1,4 +1,4 @@
-﻿# Leader Election
+# Leader Election
 
 Package `election` campaigns on claims + fencing tokens.
 

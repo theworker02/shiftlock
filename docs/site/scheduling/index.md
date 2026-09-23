@@ -1,4 +1,4 @@
-﻿# Scheduling
+# Scheduling
 
 Scheduled tasks use supervisor `ModeScheduled` with `ScheduleEvery`.
 

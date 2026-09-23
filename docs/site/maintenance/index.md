@@ -1,4 +1,4 @@
-﻿# Maintenance
+# Maintenance
 
 Package `control/maintenance`: scoped, durable, auto-expiring maintenance windows.
 

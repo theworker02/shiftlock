@@ -1,4 +1,4 @@
-﻿# Backends
+# Backends
 
 | Backend | Package | Notes |
 |---------|---------|-------|

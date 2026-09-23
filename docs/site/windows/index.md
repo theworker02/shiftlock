@@ -1,4 +1,4 @@
-﻿# Windows
+# Windows
 
 Windows Service wrappers are application-owned. ShiftLock remains a library; use SCM or NSSM to host your process.
 

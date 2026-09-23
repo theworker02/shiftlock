@@ -1,4 +1,4 @@
-﻿# Supervisor
+# Supervisor
 
 Package `supervise` runs ownership-aware tasks with bounded restarts.
 

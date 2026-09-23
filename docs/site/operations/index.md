@@ -1,4 +1,4 @@
-﻿# Operations
+# Operations
 
 Operator runbooks and production guidance:
 

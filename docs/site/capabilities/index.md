@@ -1,4 +1,4 @@
-﻿# Capabilities
+# Capabilities
 
 Package `capability`: narrow, short-TTL, epoch-bound grants. Optional Ed25519 signatures.
 

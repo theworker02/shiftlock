@@ -1,4 +1,4 @@
-﻿# Ownership
+# Ownership
 
 Ownership is acquired through claims backed by a Backend (memory, Postgres, Redis, Kubernetes).
 

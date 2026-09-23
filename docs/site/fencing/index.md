@@ -1,4 +1,4 @@
-﻿# Fencing
+# Fencing
 
 Fencing tokens increase monotonically. A stale generation must not release or mutate state owned by a newer token.
 

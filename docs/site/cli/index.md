@@ -1,4 +1,4 @@
-﻿# CLI
+# CLI
 
 ```bash
 go run ./cmd/shiftlock help
